@@ -321,8 +321,11 @@ enum XMPPRosterFlags
 			return YES;
 		}
 		else
-		{
-			return NO;
+		{   // Make an exception for yourself. This is the only way to get the server's nickname for you.
+            NSString *jidStr = [item attributeStringValueForName:@"jid"];
+            XMPPJID  *jid    = [XMPPJID jidWithString: jidStr];
+            
+			return [xmppStream.myJID.bare isEqualToString: jid.bare];
 		}
 	}
 	
